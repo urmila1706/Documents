@@ -10,7 +10,7 @@ function saveToLocalStorage(event) {
   // localStorage.setItem(obj.Email, obj_serialized);
   axios
     .post(
-      "https://crudcrud.com/api/c2c95922c457495ab7159a2e1fec56df/appointmentData",
+      "https://crudcrud.com/api/b361616e0f0a4d948896f37f0c0d625f/appointmentData",
       obj
     )
     .then((response) => {
@@ -24,10 +24,9 @@ function saveToLocalStorage(event) {
 window.addEventListener("DOMContentLoaded", () => {
   axios
     .get(
-      "https://crudcrud.com/api/c2c95922c457495ab7159a2e1fec56df/appointmentData"
+      "https://crudcrud.com/api/b361616e0f0a4d948896f37f0c0d625f/appointmentData"
     )
     .then((res) => {
-      console.log(res);
       // console.log(res);
       for (var i = 0; i < res.data.length; i++) {
         showUserOnScreen(res.data[i]);
@@ -45,14 +44,14 @@ function showUserOnScreen(obj) {
   button.type = "button";
   button.value = "Delete";
   button.onclick = () => {
-    localStorage.removeItem(obj.Email);
     // localStorage.removeItem(obj.Email);
     axios
       .delete(
-        `https://crudcrud.com/api/c2c95922c457495ab7159a2e1fec56df/appointmentData/${obj._id}`
+        `https://crudcrud.com/api/b361616e0f0a4d948896f37f0c0d625f/appointmentData/${obj._id}`
       )
       .then((res) => {
         console.log(res);
+        // console.log(res);
       })
       .catch((err) => console.log(err));
     parentElement.removeChild(childElement);
@@ -62,6 +61,18 @@ function showUserOnScreen(obj) {
   EditButton.value = "Edit";
   EditButton.onclick = () => {
     localStorage.removeItem(obj.Email);
+    // localStorage.removeItem(obj.Email);
+    axios
+      .delete(
+        `https://crudcrud.com/api/b361616e0f0a4d948896f37f0c0d625f/appointmentData/${obj._id}`
+      )
+
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     parentElement.removeChild(childElement);
     document.getElementById("id-name").value = obj.Name;
     document.getElementById("id-email").value = obj.Email;
