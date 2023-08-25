@@ -11,9 +11,12 @@ function saveToLocalStorage(event) {
   showUserOnScreen(obj);
   // let obj_serialized = JSON.stringify(obj);
   // localStorage.setItem(obj.Email, obj_serialized);
-  axios.post("https://crudcrud.com/api/b361616e0f0a4d948896f37f0c0d625f/appointmentData", obj)
+  axios.get("https://crudcrud.com/api/b361616e0f0a4d948896f37f0c0d625f/appointmentData", obj)
     .then((response) => {
-      showUserOnScreen(response.data);
+      console.log(response)
+      for(var i=0;i<response.data.length;i++){
+        showUserOnScreen(response.data[i])
+      }
     })
     .catch((err) => {
       console.log(err);
