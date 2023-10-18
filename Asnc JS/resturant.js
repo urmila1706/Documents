@@ -1,144 +1,88 @@
 "use strict";
+
 function tableQuantity(event) {
   event.preventDefault();
   const table = event.target.tableName.value;
   const dish = event.target.dishName.value;
   const price = event.target.Price.value;
  // let quantity = event.target.Quantity.value;
-  let obj = {
-    table,
-    dish,
-    price,
-   // quantity,
-  };
-  showUserOnScreen(obj);
+  let obj = {};
+    obj.tableName=table;
+    obj.dishName=dish;
+    obj.Price=price;
+   
+ // showUserOnScreen(obj);
 
    axios
      .post(
-       "https://crudcrud.com/api/888be381e049442e911bc40c67671c59/orders" ,obj)
-     .then((res) => console.log(res))
-   .catch((err) => console.log(err));
+       "https://crudcrud.com/api/3b90a58a4f7549d1904bef4dcb7f732b/orders" ,obj)
+     .then((response) => {
+     showUserOnScreen(response.data);
+     })
+   .catch((err) =>{ console.log(err);
+   })
+   //showUserOnScreen(obj);
  }
  window.addEventListener("DOMContentLoaded", () => {
   axios
-    .get("https://crudcrud.com/api/888be381e049442e911bc40c67671c59/orders")
-    .then((res) => {
-     for (let i = 0; i < res.data.length; i++) {
-        showUserOnScreen(res.data[i]);
+    .get("https://crudcrud.com/api/3b90a58a4f7549d1904bef4dcb7f732b/orders")
+    .then((response) => {
+     for (var i = 0; i < response.data.length; i++) {
+        showUserOnScreen(response.data[i]);
       }
     })
     .catch((err) => {
-      showUserOnScreen(err);
+      console.log(err);
      });
  });
 
 function showUserOnScreen(obj) {
-  const parentEl = document.querySelector("#formElements");
+  const parentEl = document.getElementById("formId");
   const childEl = document.createElement("li");
-  childEl.textContent = `${obj.table} - ${obj.dish} - ${obj.price}`;
-   childEl.classList = "table-Details";
-  parentEl.appendChild(childEl);
-   const btn1 = document.createElement("input");
-   btn1.type = "button";
-   btn1.value = "table1";
-   btn1.classList = "btn btn-dark"
-  childEl.appendChild(btn1);
-   const btn2 = document.createElement("input");
- btn2.type = "button"; 
-  btn2.value = "table2";
- btn2.classList = "btn btn-dark";
-  childEl.appendChild(btn2);
-  const btn3 = document.createElement("input");
-   btn3.type = "button";
-   btn3.value = "table3";
-  btn3.classList = "btn btn-dark";
- childEl.appendChild(btn3);
-  
+  childEl.textContent = `${obj.tableName} - ${obj.dishName} - ${obj.Price}`;
+   const button = document.createElement("input");
+   button.type = "button";
+   button.value = "Delete";
+
+
   // Button Click
-  btn1.onclick = () => {
-    console.log(obj.table);
+  button.onclick = () => {
+  //  console.log(obj.table);
     axios
       .delete(
-        `https://crudcrud.com/api/888be381e049442e911bc40c67671c59/orders/${obj._id}`
+        `https://crudcrud.com/api/3b90a58a4f7549d1904bef4dcb7f732b/orders/${obj._id}`
       )
-      .then(() => {
-        parentEl.removeChild(childEl);
+      .then((response) => {
+        console.log(response);
       })
       .catch((err) => {
         console.log(err);
       });
-    axios
-      .post(
-        "https://crudcrud.com/api/888be381e049442e911bc40c67671c59/orders",
-        {
-          candy: `${obj.table}`,
-          dish: `${obj.dish}`,
-          price: `${obj.price}`,
-          
-        }
-      )
-      .then((res) => {
-        showUserOnScreen(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  btn2.onclick = () => {
-    axios
+      parentEl.removeChild(childEl);
+    };
+      const EditButton=document.createElement("input");
+      EditButton.type="Button";
+      EditButton.value="Edit";
+      EditButton.onclick=()=>{
+        localStorage.removeItem(obj.Price);
+        axios
       .delete(
-        `https://crudcrud.com/api/888be381e049442e911bc40c67671c59/orders/${obj._id}`
+        `https://crudcrud.com/api/3b90a58a4f7549d1904bef4dcb7f732b/orders/${obj._id}`
       )
-      .then((res) => {
-        parentEl.removeChild(childEl);
+      .then((response) => {
+      console.log(response);
       })
       .catch((err) => {
         console.log(err);
       });
-    axios
-      .post(
-        "https://crudcrud.com/api/888be381e049442e911bc40c67671c59/orders",
-        {
-          table: `${obj.table}`,
-          dish: `${obj.dish}`,
-          price: `${obj.price}`,
-          
-        }
-      )
-      .then((res) => {
-        showUserOnScreen(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  btn3.onclick = () => {
-    axios
-      .delete(
-        `https://crudcrud.com/api/888be381e049442e911bc40c67671c59/orders/${obj._id}`
-      )
-      .then((res) => {
-        parentEl.removeChild(childEl);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    axios
-      .post(
-        "https://crudcrud.com/api/888be381e049442e911bc40c67671c59/orders",
-        {
-          candy: `${obj.table}`,
-          dish: `${obj.dish}`,
-          price: `${obj.price}`,
-          
-        }
-      )
-      .then((res) => {
-        showUserOnScreen(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+    parentEl.removeChild(childEl);
+    document.getElementById("tableName").value=obj.tableName;
+    document.getElementById("dishName").value=obj.dishName;
+    document.getElementById("Price").value=obj.Price;
+    };
+    childEl.appendChild(button);
+    childEl.appendChild(EditButton);
+    parentEl.appendChild(childEl);
 }
+
                                                                                                                          
