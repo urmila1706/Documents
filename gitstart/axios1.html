@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>JS For Beginners</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+
+
+  </head>
+  <body>
+    <header>
+      <h1>JS For Beginners</h1>
+    </header>
+    <section class="container">
+      <form id="my-form" onsubmit="saveToLocalStorage(event)">
+        <h1>Add User</h1>
+        <div class="msg"></div>
+        <div>
+          <label for="id-name">Name:</label>
+          <input type="text" id="id-name" name="username" autocomplete="given-name" />
+        </div>
+        <div>
+          <label for="id-email">Email:</label>
+          <input type="text" id="id-email" name="email" autocomplete="given-name" />
+        </div>
+        <input class="button" type="submit" value="Submit" autocomplete="off" />
+      </form>
+
+      <ul id="listofItems"></ul>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="crudcrud.js"></script>
+  </body>
+</html>
+ 
